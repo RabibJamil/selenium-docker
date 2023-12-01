@@ -4,7 +4,6 @@ echo "BROWSER       : ${BROWSER:-chrome}"
 echo "THREAD_COUNT  : ${THREAD_COUNT:-1}"
 echo "TEST_SUITE    : ${TEST_SUITE}"
 echo "-------------------------------------------"
-
 echo "Checking if hub is ready..!"
 count=0
 while [ "$( curl -s http://${HUB_HOST:-hub}:4444/status | jq -r .value.ready )" != "true" ]
@@ -18,10 +17,7 @@ do
   fi
   sleep 1
 done
-
 echo "Selenium Grid is up and running. Running the test...."
-
-
 java -cp 'libs/*' \
      -Dselenium.grid.enabled=true \
      -Dselenium.grid.hubHost="${HUB_HOST:-hub}" \
