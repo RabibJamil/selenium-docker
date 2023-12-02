@@ -1,3 +1,10 @@
+/*
+    Note:
+
+    Windows users use "bat" instead of "sh"
+    For ex: bat 'docker build -t=rabib1515/selenium .'
+
+*/
 pipeline{
 
     agent any
@@ -6,34 +13,33 @@ pipeline{
 
         stage('Build Jar'){
             steps{
-                bat 'mvn clean package -DskipTests'
+                sh 'mvn clean package -DskipTests'
             }
         }
 
         stage('Build Image'){
-                    steps{
-                        bat 'docker build -t=rabib1515/selenium:latest .'
-                    }
-                }
-
-        stage('Push Image'){
-             environment{
-                DOCKER_HUB = credentials('dockerhub-creds')
-             }
-                            steps{
-                                bat "docker login -u ${DOCKER_HUB_USR} -p ${DOCKER_HUB_PSW}"
-                                bat 'docker push rabib1515/selenium:latest'
-                                bat "docker tag rabib1515/selenium:latest rabib1515/selenium:${env.BUILD_NUMBER}"
-                                bat "docker push rabib1515/selenium:${env.BUILD_NUMBER}"
-                            }
-                        }
-    }
-
-    post {
-                always {
-                bat 'docker logout'
+            steps{
+                sh 'docker build -t=rabib1515/selenium .'
             }
         }
 
+        stage('Push Image'){
+            environment{
+                // assuming you have stored the credentials with this name
+                DOCKER_HUB = credentials('dockerhub-creds')
+            }
+            steps{
+                sh 'echo ${DOCKER_HUB_PSW} | docker login -u ${DOCKER_HUB_USR} --password-stdin'
+                sh 'docker push rabib1515/selenium'
+            }
+        }
+
+    }
+
+    post {
+        always {
+            sh 'docker logout'
+        }
+    }
 
 }
