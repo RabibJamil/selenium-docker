@@ -1,35 +1,39 @@
-pipeline {
-    agent none
-    stages {
-        stage('Build Jar') {
-            agent {
-                docker {
-                    image 'maven:3.9.3-eclipse-temurin-17-focal'
-                    args '-u root -v /tmp/m2:/root/.m2'
-                }
-            }
-            steps {
-                sh 'mvn clean package -DskipTests'
-            }
-        }
-        stage('Build Image') {
-            steps {
-                script {
-                    app = docker.build('rabib1515/selenium')
-                }
+pipeline{
+
+    agent any
+
+    stages{
+
+        stage('Build Jar'){
+            steps{
+                bat 'mvn clean package -DskipTests'
             }
         }
 
-        stage('Push Image'){
-            steps{
-                script {
-                    // registry url is blank for dockerhub
-                    docker.withRegistry('', 'dockerhub-creds') {
-                        app.push("latest")
+        stage('Build Image'){
+                    steps{
+                        bat 'docker build -t=rabib1515/selenium:latest ./'
                     }
                 }
+
+        stage('Push Image'){
+             environment{
+                DOCKER_HUB = credentials('dockerhub-creds')
+             }
+                            steps{
+                                bat "docker login -u ${DOCKER_HUB_USR} -p ${DOCKER_HUB_PSW}"
+                                bat 'docker push rabib1515/selenium:latest'
+                                bat "docker tag rabib1515/selenium:latest rabib1515/selenium:${env.BUILD_NUMBER}"
+                                bat "docker push rabib1515/selenium:${env.BUILD_NUMBER}"
+                            }
+                        }
+    }
+
+    post {
+                always {
+                bat 'docker logout'
             }
         }
 
-    }
+
 }
