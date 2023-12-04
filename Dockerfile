@@ -1,9 +1,7 @@
 FROM bellsoft/liberica-openjdk-alpine:17.0.8
 
 RUN apk add curl jq
-#RUN apk update
-#RUN apk upgrade
-RUN apk add bash
+RUN apk update && apk add bash
 
 WORKDIR /home/selenium-docker
 
