@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 echo "-------------------------------------------"
 echo "HUB_HOST      : ${HUB_HOST:-hub}"
 echo "BROWSER       : ${BROWSER:-chrome}"
