@@ -15,6 +15,6 @@ ADD runner.sh runner.sh
 #TEST_SUITE
 #THREAD_COUNT
 
-#ENTRYPOINT sh runner.sh
-ENTRYPOINT sudo sh runner.sh
+ENTRYPOINT sh runner.sh
+#ENTRYPOINT sudo sh runner.sh
 #ENTRYPOINT ["/bin/bash", "-c", "./runner.sh"]
