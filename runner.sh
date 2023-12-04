@@ -17,8 +17,8 @@ echo "Checking if hub is ready..!"
 #  fi
 #  sleep 1
 #done
-time_w=20
-sleep "$time_w"
+
+sleep '20'
 echo "Selenium Grid is up and running. Running the test...."
 java -cp 'libs/*' \
      -Dselenium.grid.enabled=true \
