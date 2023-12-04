@@ -12,7 +12,7 @@ pipeline{
 
         stage('Build Image'){
                     steps{
-                        bat 'docker build -t=rabib1515/selenium:latest .'
+                        bat 'docker build --no-cache -t=rabib1515/selenium:latest .'
                     }
                 }
 
