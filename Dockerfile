@@ -14,5 +14,5 @@ ADD runner.sh               runner.sh
 #TEST_SUITE
 #THREAD_COUNT
 
-#ENTRYPOINT sh runner.sh
-ENTRYPOINT ["runner.sh"]
+ENTRYPOINT sh runner.sh
+#ENTRYPOINT ["runner.sh"]
