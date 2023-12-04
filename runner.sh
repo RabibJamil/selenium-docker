@@ -5,7 +5,6 @@ echo "BROWSER       : ${BROWSER:-chrome}"
 echo "THREAD_COUNT  : ${THREAD_COUNT:-1}"
 echo "TEST_SUITE    : ${TEST_SUITE}"
 echo "-------------------------------------------"
-
 # Do not start the tests immediately. Hub has to be ready with browser nodes
 echo "Checking if hub is ready..!"
 count=0
@@ -20,10 +19,8 @@ do
   fi
   sleep 1
 done
-
 # At this point, selenium grid should be up!
 echo "Selenium Grid is up and running. Running the test...."
-
 # Start the java command
 java -cp 'libs/*' \
      -Dselenium.grid.enabled=true \
