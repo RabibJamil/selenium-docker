@@ -6,7 +6,7 @@ WORKDIR /home/selenium-docker
 
 ADD target/docker-resources /home/selenium-docker
 
-ADD runner.sh               runner.sh
+ADD runner.sh /home/selenium-docker/runner.sh
 
 #Environment Variables
 #BROWSER
