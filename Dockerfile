@@ -15,4 +15,4 @@ ADD runner.sh               runner.sh
 #THREAD_COUNT
 
 #ENTRYPOINT sh runner.sh
-ENTRYPOINT ["/bin/bash", "-c", "runner.sh"]
+ENTRYPOINT ["runner.sh"]
