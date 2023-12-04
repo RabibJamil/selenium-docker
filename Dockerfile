@@ -1,6 +1,7 @@
 FROM bellsoft/liberica-openjdk-alpine:17.0.8
 
 RUN apk add curl jq
+RUN  apt-get install dos2unix
 
 WORKDIR /home/selenium-docker
 
